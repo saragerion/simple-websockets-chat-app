@@ -104,9 +104,18 @@ Resources:
       AttributeDefinitions:
       - AttributeName: "connectionId"
         AttributeType: "S"
+      - AttributeName: "isOpen"
+        AttributeType: "S"
       KeySchema:
       - AttributeName: "connectionId"
         KeyType: "HASH"
+      GlobalSecondaryIndexes:
+      - IndexName: "openConnectionsIndex"
+        KeySchema:
+          - AttributeName: "isOpen"
+            KeyType: "HASH"
+        Projection:
+          ProjectionType: KEYS_ONLY
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
